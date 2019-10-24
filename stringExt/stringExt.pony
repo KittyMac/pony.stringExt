@@ -18,10 +18,19 @@ struct TM
 primitive StringExt
 
 
-	fun parseDate(date:String, fmt:String):PosixDate =>
+	fun endswith(string:String box, other:String box) : Bool =>
+		string.at(other, (string.size() - other.size()).isize() )
+
+	fun startswith(string:String box, other:String box) : Bool =>
+		string.at(other, 0)
+
+	fun parseDate(date:String, fmt:String):PosixDate? =>
 		// parse a date string into the PosixDate format
 		var tm:TM ref = TM
-		@strptime(date.cpointer(), fmt.cpointer(), NullablePointer[TM](tm))
+		let ret:Pointer[U8] = @strptime(date.cpointer(), fmt.cpointer(), NullablePointer[TM](tm))
+		if ret.is_null() then
+			error
+		end
 		let time_t:I64 = @timegm(NullablePointer[TM](tm))
 		PosixDate(time_t, 0)
 
