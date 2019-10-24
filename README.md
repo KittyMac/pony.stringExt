@@ -17,7 +17,7 @@ h.env.out.print(StringExt.format("%s/%s/%s %s:%s:%s", d.month, d.day_of_month, d
 
 ## License
 
-pony.sort is free software distributed under the terms of the MIT license, reproduced below. pony.sort may be used for any purpose, including commercial purposes, at absolutely no cost. No paperwork, no royalties, no GNU-like "copyleft" restrictions. Just download and enjoy.
+pony.stringExt is free software distributed under the terms of the MIT license, reproduced below. pony.stringExt may be used for any purpose, including commercial purposes, at absolutely no cost. No paperwork, no royalties, no GNU-like "copyleft" restrictions. Just download and enjoy.
 
 Copyright (c) 2019 Rocco Bowling
 
