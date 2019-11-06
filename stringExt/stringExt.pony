@@ -79,29 +79,121 @@ primitive StringExt
 			try
 				var i_arg:USize = 0
 				var i:USize = 0
+				var opt = String(128)
+				
 				while i < fmt.size() do
 					let c = fmt(i)?
 					if i == (fmt.size()-1) then
 						newString.push(c)
 					else
 						let n = fmt(i+1)?
-			
-						if (c == '%') and (n == 's') then
-							i = i + 1
+						
+						if (c == '%') then
+							// search forward for an 's', bail if we hit a space
+							var j:USize = i
+							
+							opt.clear()
+							while j < fmt.size() do
+								let e = fmt(j)?
+								opt.push(e)
+								if (e == 's') then
+									i = j
+									break
+								end
+								if (e == ' ') or (e == '\n') then
+									break
+								end
+								
+								j = j + 1
+							end
+														
+							var nextString = ""
 							match i_arg
-							| 0 => newString.append(string0)
-							| 1 => newString.append(string1)
-							| 2 => newString.append(string2)
-							| 3 => newString.append(string3)
-							| 4 => newString.append(string4)
-							| 5 => newString.append(string5)
-							| 6 => newString.append(string6)
-							| 7 => newString.append(string7)
-							| 8 => newString.append(string8)
-							| 9 => newString.append(string9)
+							| 0 => nextString = string0
+							| 1 => nextString = string1
+							| 2 => nextString = string2
+							| 3 => nextString = string3
+							| 4 => nextString = string4
+							| 5 => nextString = string5
+							| 6 => nextString = string6
+							| 7 => nextString = string7
+							| 8 => nextString = string8
+							| 9 => nextString = string9
 							end
 							i_arg = i_arg + 1
-
+							
+							if opt.size() == 2 then
+								newString.append(nextString)
+							else
+								let kLeft:USize = 0
+								let kCenter:USize = 1
+								let kRight:USize = 2
+								
+								// the number between the % and the s is a field size
+								try
+									opt.shift()?
+									opt.pop()?
+									
+									// %+10s means right aligned, 10 characters wide
+									// %-10s means left aligned, 10 characters wide
+									// %10s means center aligned, 10 characters wide
+									var direction = kCenter
+									if opt(0)? == '+' then
+										opt.shift()?
+										direction = kRight
+									end
+									if opt(0)? == '-' then
+										opt.shift()?
+										direction = kLeft
+									end									
+									
+									let nextStringSize = nextString.size()
+									let fieldSize = opt.usize()?
+									let padding = (fieldSize - nextStringSize) / 2
+									
+									var k:USize = 0
+																		
+									if direction == kCenter then
+										while k < fieldSize do
+											if 	k == padding then
+												newString.append(nextString)
+												k = k + nextStringSize
+											else
+												newString.push(' ')
+												k = k + 1
+											end
+										end
+									end
+									
+									if direction == kLeft then
+										while k < fieldSize do
+											if 	k == 0 then
+												newString.append(nextString)
+												k = k + nextStringSize
+											else
+												newString.push(' ')
+												k = k + 1
+											end
+										end
+									end
+									
+									if direction == kRight then
+										while k < fieldSize do
+											if 	(k == (fieldSize - nextStringSize)) then
+												newString.append(nextString)
+												k = k + nextStringSize
+											else
+												newString.push(' ')
+												k = k + 1
+											end
+										end
+									end
+									
+								else
+									newString.append(nextString)
+								end
+							end
+							
 						else
 							newString.push(c)
 						end
