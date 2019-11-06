@@ -125,15 +125,31 @@ primitive StringExt
 							if opt.size() == 2 then
 								newString.append(nextString)
 							else
-								let kLeft:USize = 0
-								let kCenter:USize = 1
-								let kRight:USize = 2
-								
-								// the number between the % and the s is a field size
 								try
+									// the numbers between the % and the s is a field size
 									opt.shift()?
 									opt.pop()?
-									
+								
+									if opt.contains(".") then
+										// %10.3s means "field width of 10, with 3 units of precision"
+										// This handles the "3 units of precision" part
+									    let optParts: Array[String] = opt.split(".")
+										var right = optParts(1)?.isize()?
+										
+										try
+											let dotIdx = nextString.find(".") ?
+											let endIdx = dotIdx + right + 1
+											nextString = nextString.substring(0, endIdx)
+										end
+										
+										opt.clear()
+										opt.append(optParts(0)?)
+									end
+								
+									let kLeft:USize = 0
+									let kCenter:USize = 1
+									let kRight:USize = 2
+														
 									// %+10s means right aligned, 10 characters wide
 									// %-10s means left aligned, 10 characters wide
 									// %10s means center aligned, 10 characters wide
@@ -146,13 +162,13 @@ primitive StringExt
 										opt.shift()?
 										direction = kLeft
 									end									
-									
+							
 									let nextStringSize = nextString.size()
 									let fieldSize = opt.usize()?
 									let padding = (fieldSize - nextStringSize) / 2
-									
+							
 									var k:USize = 0
-																		
+																
 									if direction == kCenter then
 										while k < fieldSize do
 											if 	k == padding then
@@ -164,7 +180,7 @@ primitive StringExt
 											end
 										end
 									end
-									
+							
 									if direction == kLeft then
 										while k < fieldSize do
 											if 	k == 0 then
@@ -176,7 +192,7 @@ primitive StringExt
 											end
 										end
 									end
-									
+							
 									if direction == kRight then
 										while k < fieldSize do
 											if 	(k == (fieldSize - nextStringSize)) then
@@ -188,10 +204,11 @@ primitive StringExt
 											end
 										end
 									end
-									
+							
 								else
 									newString.append(nextString)
 								end
+							
 							end
 							
 						else

@@ -24,6 +24,9 @@ class iso _TestFormatStringFieldSize is UnitTest
 		h.env.out.print( StringExt.format("+----------+----------+") )
 		h.env.out.print( StringExt.format("+%-10s+%+10s+", "hello", "world") )
 		h.env.out.print( StringExt.format("+----------+----------+") )
+		h.env.out.print( StringExt.format("+%-10.5s+%+10.2s+", "21.123456789", "1.123456789") )
+		h.env.out.print( StringExt.format("+%-10.5s+%+10.2s+", "21.1", "1") )
+		h.env.out.print( StringExt.format("+----------+----------+") )
 
 class iso _TestFormatString is UnitTest
 	fun name(): String => "format string"
