@@ -140,6 +140,9 @@ primitive StringExt
 											let dotIdx = nextString.find(".") ?
 											let endIdx = dotIdx + right + 1
 											nextString = nextString.substring(0, endIdx)
+										else
+											// there's no '.' Let's just add one...
+											nextString = nextString + ".0"
 										end
 										
 										opt.clear()
