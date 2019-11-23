@@ -4,6 +4,8 @@ use "time"
 use @strptime[Pointer[U8]](buffer:Pointer[U8] tag, format:Pointer[U8] tag, tm:NullablePointer[TM] ref)
 use @timegm[I64](tm:NullablePointer[TM] ref)
 
+use @strnstr[Pointer[U8]](haystack:Pointer[U8] tag, needle:Pointer[U8] tag, len:USize)
+
 struct TM
 	var tm_sec:U32 = 0
 	var tm_min:U32 = 0
@@ -17,6 +19,9 @@ struct TM
 
 primitive StringExt
 
+	fun contains(haystack:String box, needle:String box):Bool =>
+		@strnstr(haystack.cpointer(0), needle.cpointer(0), haystack.size()).is_null() == false
+		
 
 	fun endswith(string:String box, other:String box) : Bool =>
 		string.at(other, (string.size() - other.size()).isize() )

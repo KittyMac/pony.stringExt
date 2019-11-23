@@ -10,6 +10,7 @@ actor Main is TestList
 		test(_TestFormatStringFieldSize)
 		test(_TestFormatString)
 		test(_TestParseDate)
+		test(_TestContains)
 		
 
 
@@ -44,4 +45,14 @@ class iso _TestParseDate is UnitTest
 			let d = StringExt.parseDate("10/21/2019 6:27:20 PM", "%m/%d/%Y %I:%M:%S %p")?
 			h.env.out.print(StringExt.format("%s/%s/%s %s:%s:%s", d.month, d.day_of_month, d.year, d.hour, d.min, d.sec))
 		end
+
+class iso _TestContains is UnitTest
+	fun name(): String => "contains"
+
+	fun apply(h: TestHelper) =>
+		var result = StringExt.contains("hello world", "lo wo")
+		h.env.out.print(StringExt.format("contains should be true: %s", result))
+		
+		result = StringExt.contains("hello world", "wtf")
+		h.env.out.print(StringExt.format("contains should be false: %s", result))
 
