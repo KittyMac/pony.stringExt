@@ -19,6 +19,22 @@ struct TM
 
 primitive StringExt
 
+	fun baseDirectory(path:String):String =>
+		var startIdx:ISize = 0
+		var endIdx:ISize = path.size().isize()
+		try
+			endIdx = path.rfind("/")?
+		end
+		path.substring(startIdx, endIdx)
+
+	fun lastPathComponent(path:String):String =>
+		var startIdx:ISize = 0
+		try
+			startIdx = path.rfind("/")?
+		end
+		var endIdx:ISize = path.size().isize()
+		path.substring(startIdx, endIdx)
+
 	fun contains(haystack:String box, needle:String box):Bool =>
 		@strnstr(haystack.cpointer(0), needle.cpointer(0), haystack.size()).is_null() == false
 		
