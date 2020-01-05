@@ -68,7 +68,17 @@ primitive StringExt
 				arg6:Stringable val = "",
 				arg7:Stringable val = "",
 				arg8:Stringable val = "",
-				arg9:Stringable val = ""):String val =>
+				arg9:Stringable val = "",
+				arg10:Stringable val = "",
+				arg11:Stringable val = "", 
+				arg12:Stringable val = "",
+				arg13:Stringable val = "",
+				arg14:Stringable val = "",
+				arg15:Stringable val = "",
+				arg16:Stringable val = "",
+				arg17:Stringable val = "",
+				arg18:Stringable val = "",
+				arg19:Stringable val = ""):String val =>
 		// I'm not super proud of this, but it works and it should be fairly efficient
 		// StringExt.format("Such %s formatting", "awesome")
 		let string0:String val = arg0.string()
@@ -81,6 +91,16 @@ primitive StringExt
 		let string7:String val = arg7.string()
 		let string8:String val = arg8.string()
 		let string9:String val = arg9.string()
+		let string10:String val = arg10.string()
+		let string11:String val = arg11.string()
+		let string12:String val = arg12.string()
+		let string13:String val = arg13.string()
+		let string14:String val = arg14.string()
+		let string15:String val = arg15.string()
+		let string16:String val = arg16.string()
+		let string17:String val = arg17.string()
+		let string18:String val = arg18.string()
+		let string19:String val = arg19.string()
 		
 		let targetSize = 	fmt.size() + 
 							string0.size() + 
@@ -92,7 +112,17 @@ primitive StringExt
 							string6.size() + 
 							string7.size() + 
 							string8.size() + 
-							string9.size()
+							string9.size() +
+							string10.size() + 
+							string11.size() + 
+							string12.size() + 
+							string13.size() + 
+							string14.size() + 
+							string15.size() + 
+							string16.size() + 
+							string17.size() + 
+							string18.size() + 
+							string19.size()
 	
 		recover val
 			var newString = String(targetSize)
@@ -140,6 +170,16 @@ primitive StringExt
 							| 7 => nextString = string7
 							| 8 => nextString = string8
 							| 9 => nextString = string9
+							| 10 => nextString = string10
+							| 11 => nextString = string11
+							| 12 => nextString = string12
+							| 13 => nextString = string13
+							| 14 => nextString = string14
+							| 15 => nextString = string15
+							| 16 => nextString = string16
+							| 17 => nextString = string17
+							| 18 => nextString = string18
+							| 19 => nextString = string19
 							end
 							i_arg = i_arg + 1
 							
