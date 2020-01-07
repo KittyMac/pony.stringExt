@@ -19,7 +19,6 @@ class iso _TestFormatStringFieldSize is UnitTest
 	fun name(): String => "format string field size"
 
 	fun apply(h: TestHelper) =>
-		let x:U32 = 42
 		h.env.out.print( StringExt.format("+----------+----------+") )
 		h.env.out.print( StringExt.format("+%10s+%10s+", "hello", "world") )
 		h.env.out.print( StringExt.format("+----------+----------+") )

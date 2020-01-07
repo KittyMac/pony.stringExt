@@ -136,9 +136,7 @@ primitive StringExt
 					let c = fmt(i)?
 					if i == (fmt.size()-1) then
 						newString.push(c)
-					else
-						let n = fmt(i+1)?
-						
+					else						
 						if (c == '%') then
 							// search forward for an 's', bail if we hit a space
 							var j:USize = i
