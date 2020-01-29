@@ -35,7 +35,7 @@ primitive StringExt
 		var endIdx:ISize = path.size().isize()
 		path.substring(startIdx, endIdx)
 	
-	fun pathExtension(path:String):String =>
+	fun pathExtension(path:String box):String =>
 		var startIdx:ISize = 0
 		try
 			startIdx = path.rfind(".")?
@@ -67,26 +67,26 @@ primitive StringExt
 		
 
 	fun format(	fmt:String, 
-				arg0:Stringable val = "",
-				arg1:Stringable val = "", 
-				arg2:Stringable val = "",
-				arg3:Stringable val = "",
-				arg4:Stringable val = "",
-				arg5:Stringable val = "",
-				arg6:Stringable val = "",
-				arg7:Stringable val = "",
-				arg8:Stringable val = "",
-				arg9:Stringable val = "",
-				arg10:Stringable val = "",
-				arg11:Stringable val = "", 
-				arg12:Stringable val = "",
-				arg13:Stringable val = "",
-				arg14:Stringable val = "",
-				arg15:Stringable val = "",
-				arg16:Stringable val = "",
-				arg17:Stringable val = "",
-				arg18:Stringable val = "",
-				arg19:Stringable val = ""):String val =>
+				arg0:Stringable box = "",
+				arg1:Stringable box = "", 
+				arg2:Stringable box = "",
+				arg3:Stringable box = "",
+				arg4:Stringable box = "",
+				arg5:Stringable box = "",
+				arg6:Stringable box = "",
+				arg7:Stringable box = "",
+				arg8:Stringable box = "",
+				arg9:Stringable box = "",
+				arg10:Stringable box = "",
+				arg11:Stringable box = "", 
+				arg12:Stringable box = "",
+				arg13:Stringable box = "",
+				arg14:Stringable box = "",
+				arg15:Stringable box = "",
+				arg16:Stringable box = "",
+				arg17:Stringable box = "",
+				arg18:Stringable box = "",
+				arg19:Stringable box = ""):String =>
 		// I'm not super proud of this, but it works and it should be fairly efficient
 		// StringExt.format("Such %s formatting", "awesome")
 		let string0:String val = arg0.string()
