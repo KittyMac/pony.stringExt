@@ -241,7 +241,7 @@ primitive StringExt
 																
 									if direction == kCenter then
 										while k < fieldSize do
-											if 	k == padding then
+											if (k == padding) and (nextStringSize != 0) then
 												newString.append(nextString)
 												k = k + nextStringSize
 											else
@@ -253,7 +253,7 @@ primitive StringExt
 							
 									if direction == kLeft then
 										while k < fieldSize do
-											if 	k == 0 then
+											if (k == 0) and (nextStringSize != 0) then
 												newString.append(nextString)
 												k = k + nextStringSize
 											else
@@ -265,7 +265,7 @@ primitive StringExt
 							
 									if direction == kRight then
 										while k < fieldSize do
-											if 	(k == (fieldSize - nextStringSize)) then
+											if (k == (fieldSize - nextStringSize)) and (nextStringSize != 0) then
 												newString.append(nextString)
 												k = k + nextStringSize
 											else
